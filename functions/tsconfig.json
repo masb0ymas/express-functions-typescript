@@ -7,9 +7,24 @@
     "rootDir": "./src",
     "strict": true,
     "baseUrl": "./src",
+    "paths": {
+      "@bin/*": ["bin/*"],
+      "@config/*": ["config/*"],
+      "@constants/*": ["constants/*"],
+      "@controllers/*": ["controllers/*"],
+      "@helpers/*": ["helpers/*"],
+      "@middlewares/*": ["middlewares/*"],
+      "@migrations/*": ["migrations/*"],
+      "@models/*": ["models/*"],
+      "@modules/*": ["modules/*"],
+      "@routes/*": ["routes/*"],
+      "@utils/*": ["utils/*"],
+      "@views/*": ["views/*"],
+    },
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
   },
+  "compileOnSave": true,
   "include": ["src/**/*"]
 }

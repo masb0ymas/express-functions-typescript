@@ -2,14 +2,15 @@
   "name": "functions",
   "version": "1.0.0",
   "scripts": {
-    "lint": "eslint --ext .js,.ts .",
+    "lint": "npx eslint --ext .js,.ts .",
     "clean": "rm -rf ./dist",
     "type-check": "tsc --noEmit",
     "before-build": "npm run clean && yarn && npm run lint && npm run type-check",
     "build": "npm run before-build && tsc -p .",
     "build:babel": "npm run before-build && babel src --out-dir dist --extensions \".ts\",\".js\"",
-    "serve": "npm run build:babel && firebase emulators:start --only functions",
-    "shell": "npm run build:babel && firebase functions:shell",
+    "serve:ts": "npm run build && firebase emulators:start --only functions",
+    "serve:babel": "npm run build:babel && firebase emulators:start --only functions",
+    "shell": "npm run build && firebase functions:shell",
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log"
@@ -20,12 +21,16 @@
   "main": "dist/index.js",
   "dependencies": {
     "cors": "^2.8.5",
+    "date-fns": "^2.16.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "firebase": "^8.2.4",
     "firebase-admin": "^9.2.0",
     "firebase-functions": "^3.11.0",
-    "morgan": "^1.10.0"
+    "lodash": "^4.17.20",
+    "module-alias": "^2.2.2",
+    "morgan": "^1.10.0",
+    "winston": "^3.3.3"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.10",
@@ -40,6 +45,8 @@
     "@babel/runtime": "^7.12.5",
     "@types/cors": "^2.8.9",
     "@types/express": "^4.17.11",
+    "@types/lodash": "^4.14.168",
+    "@types/module-alias": "^2.0.0",
     "@types/morgan": "^1.9.2",
     "@typescript-eslint/eslint-plugin": "^4.14.1",
     "@typescript-eslint/parser": "^4.14.1",
@@ -47,6 +54,7 @@
     "eslint": "^7.2.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^7.2.0",
+    "eslint-import-resolver-alias": "^1.1.2",
     "eslint-import-resolver-babel-module": "^5.2.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-prettier": "^3.3.1",
@@ -55,6 +63,20 @@
     "prettier": "^2.2.1",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.3"
+  },
+  "_moduleAliases": {
+    "@bin/*": "dist/bin/*",
+    "@config/*": "dist/config/*",
+    "@constants/*": "dist/constants/*",
+    "@controllers/*": "dist/controllers/*",
+    "@helpers/*": "dist/helpers/*",
+    "@middlewares/*": "dist/middlewares/*",
+    "@migrations/*": "dist/migrations/*",
+    "@models/*": "dist/models/*",
+    "@modules/*": "dist/modules/*",
+    "@routes/*": "dist/routes/*",
+    "@utils/*": "dist/utils/*",
+    "@views/*": "dist/views/*"
   },
   "private": true
 }

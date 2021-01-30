@@ -16,22 +16,52 @@
 
 > Firebase Cloud Function with Express and TypeScript
 
+## Prerequisites
+
+- npm >= `v6.x`
+- node >= `v12.x`
+- eslint >= `v7.x`
+- Familiar with TypeScript 💪
+
+## Feature
+
+- [TypeScript](https://github.com/microsoft/TypeScript) `v4.x`
+- [Nodemailer](https://github.com/nodemailer/nodemailer)
+- [Handlebars](https://github.com/wycats/handlebars.js) for templating HTML
+- JavaScript Style [Airbnb Base](https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb-base)
+- Formating code using [Prettier](https://github.com/prettier/prettier) Integration [Eslint](https://github.com/prettier/eslint-config-prettier)
+- Using [Babel Resolver](https://github.com/tleunen/babel-plugin-module-resolver) and [Module Alias](https://github.com/ilearnio/module-alias) for simplify the require/import paths
+- Documentation with [Swagger](https://github.com/swagger-api/swagger-ui)
+- Generate Log File with [Winston](https://github.com/winstonjs/winston)
+
 ## Install
 
 ```sh
 yarn
 ```
 
+## Run Type Check
+
+```sh
+yarn type-check
+```
+
+## Run Linter with ESLint
+
+```sh
+yarn lint
+```
+
 ## Usage
 
 ```sh
-yarn serve
+yarn serve:ts
 ```
 
-## Run tests
+## Run deploy function
 
 ```sh
-yarn test
+yarn deploy
 ```
 
 ## Author

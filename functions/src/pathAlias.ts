@@ -6,6 +6,7 @@ ModuleAlias.addAliases({
   '@constants': `${__dirname}/constants`,
   '@controllers': `${__dirname}/controllers`,
   '@helpers': `${__dirname}/helpers`,
+  '@interfaces': `${__dirname}/interfaces`,
   '@middlewares': `${__dirname}/middlewares`,
   '@migrations': `${__dirname}/migrations`,
   '@models': `${__dirname}/models`,

@@ -18,6 +18,7 @@ import withState from '@helpers/withState'
 import winstonLogger, { winstonStream } from '@config/winston'
 import ExpressErrorResponse from '@middlewares/ExpressErrorResponse'
 import ExpressErrorYup from '@middlewares/ExpressErrorYup'
+import ExpressErrorFirebase from '@middlewares/ExpressErrorFirebase'
 
 const pathEnv = path.resolve('.env')
 
@@ -46,6 +47,7 @@ app.use((req: Request, res, next) => {
 app.use(indexRoutes)
 
 app.use('/v1', ExpressErrorYup)
+app.use('/v1', ExpressErrorFirebase)
 app.use('/v1', ExpressErrorResponse)
 
 // catch 404 and forward to error handler

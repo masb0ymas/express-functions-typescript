@@ -18,7 +18,13 @@ export interface UserLoginAttributes {
   password: string
 }
 
+export interface MemberLoginAttributes extends UserLoginAttributes {
+  deviceToken: string
+}
+
 export interface UserAttributes extends BaseUserAttributes {
   newPassword: string
   confirmNewPassword: string
 }
+
+export const UserCollection = 'users'

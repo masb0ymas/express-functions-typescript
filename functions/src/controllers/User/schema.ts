@@ -1,6 +1,6 @@
 import * as yup from 'yup'
 
-const signUp = yup
+const createUser = yup
   .object()
   .shape({
     fullName: yup.string().required('Nama lengkap wajib diisi'),
@@ -38,6 +38,6 @@ const createUserFirebase = yup
   .required()
 
 export default {
-  signUp,
+  createUser,
   createUserFirebase,
 }

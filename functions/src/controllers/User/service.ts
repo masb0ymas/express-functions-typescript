@@ -2,11 +2,10 @@ import { db } from '@config/firestore'
 import useFirestoreDate from '@helpers/useFirestoreDate'
 import ResponseError from '@modules/Response/ResponseError'
 import * as admin from 'firebase-admin'
-
-const collectionName = 'users'
+import { UserCollection } from './model'
 
 class UserService {
-  public static _collection = db.collection(collectionName)
+  public static _collection = db.collection(UserCollection)
 
   /**
    *

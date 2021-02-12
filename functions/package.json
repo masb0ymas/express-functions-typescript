@@ -9,6 +9,7 @@
     "before-build": "npm run clean && yarn && npm run lint && npm run type-check",
     "build": "npm run before-build && tsc -p .",
     "build:babel": "npm run before-build && babel src --out-dir dist --extensions \".ts\",\".js\"",
+    "dev": "npm run serve",
     "serve": "npm run build && firebase emulators:start --only functions",
     "serve:babel": "npm run build:babel && firebase emulators:start --only functions",
     "shell": "npm run build && firebase functions:shell",
@@ -23,6 +24,8 @@
   "dependencies": {
     "axios": "^0.21.1",
     "body-parser": "^1.19.0",
+    "busboy": "^0.3.1",
+    "convert-excel-to-json": "^1.7.0",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "date-fns": "^2.16.1",
@@ -44,6 +47,7 @@
     "nodemailer": "^6.4.17",
     "nodemailer-mailgun-transport": "^2.0.2",
     "redis": "^3.0.2",
+    "slugify": "^1.4.6",
     "winston": "^3.3.3",
     "yup": "0.31.0"
   },
@@ -58,6 +62,8 @@
     "@babel/preset-typescript": "^7.12.7",
     "@babel/register": "^7.12.10",
     "@babel/runtime": "^7.12.5",
+    "@types/busboy": "^0.2.3",
+    "@types/convert-excel-to-json": "^1.7.0",
     "@types/cookie-parser": "^1.4.2",
     "@types/cors": "^2.8.9",
     "@types/express": "^4.17.11",

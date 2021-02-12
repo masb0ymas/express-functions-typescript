@@ -18,11 +18,23 @@ routes.post(
 )
 
 routes.post(
-  '/auth/sign-in',
+  '/auth/web/sign-in',
   asyncHandler(async function createData(req: Request, res: Response) {
     const formData = req.getBody()
 
-    const data = await AuthService.signIn(formData)
+    const data = await AuthService.webLogin(formData)
+    const buildResponse = BuildResponse.get(data)
+
+    return res.status(200).json(buildResponse)
+  })
+)
+
+routes.post(
+  '/auth/mobile/sign-in',
+  asyncHandler(async function createData(req: Request, res: Response) {
+    const formData = req.getBody()
+
+    const data = await AuthService.mobileLogin(formData)
     const buildResponse = BuildResponse.get(data)
 
     return res.status(200).json(buildResponse)

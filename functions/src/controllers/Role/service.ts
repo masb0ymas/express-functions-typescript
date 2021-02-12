@@ -7,17 +7,10 @@ import useValidation from '@helpers/useValidation'
 import useFirestoreDate from '@helpers/useFirestoreDate'
 import useQuery from '@modules/FirestoreQuery/useQuery'
 import ResponseError from '@modules/Response/ResponseError'
-
-interface RoleAttributes {
-  name: string
-  createdAt?: Date | null
-  updatedAt?: Date | null
-}
-
-const collectionName = 'roles'
+import { RoleAttributes, RoleCollection } from './model'
 
 class RoleService {
-  public static _collection = db.collection(collectionName)
+  public static _collection = db.collection(RoleCollection)
 
   /**
    *
@@ -74,11 +67,7 @@ class RoleService {
 
     const ref = await this._collection.add(value)
     const snap = await ref.get()
-
-    const data = useFirestoreDate({
-      id: ref.id,
-      ...snap.data(),
-    })
+    const data = useFirestoreDate({ id: ref.id, ...snap.data() })
 
     return data
   }

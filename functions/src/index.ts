@@ -34,7 +34,7 @@ const app = express()
 app.use(helmet())
 app.use(cors())
 app.use(logger('combined', { stream: winstonStream }))
-app.use(bodyParser.json())
+app.use(bodyParser.json({ limit: '100mb', type: 'application/json' }))
 app.use(cookieParser())
 app.use(bodyParser.urlencoded({ extended: false }))
 

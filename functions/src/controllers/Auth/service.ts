@@ -1,19 +1,21 @@
 import firebase from 'firebase'
 import * as admin from 'firebase-admin'
 import {
+  MemberLoginAttributes,
   UserAttributes,
+  UserCollection,
   UserLoginAttributes,
-} from '@controllers/User/interface'
+} from '@controllers/User/model'
 import { db } from '@config/firestore'
 import useValidation from '@helpers/useValidation'
-import schema from '@controllers/User/schema'
+import schemaUser from '@controllers/User/schema'
+import schemaAuth from '@controllers/Auth/schema'
 import useFirestoreDate from '@helpers/useFirestoreDate'
 import UserService from '@controllers/User/service'
-
-const collectionName = 'users'
+import TokenFCMService from '@controllers/TokenFCM/service'
 
 class AuthService {
-  public static _collection = db.collection(collectionName)
+  public static _collection = db.collection(UserCollection)
 
   /**
    *
@@ -29,7 +31,7 @@ class AuthService {
    * @param formData
    */
   public static async signUp(formData: UserAttributes) {
-    const validateUser = useValidation(schema.createUserFirebase, formData)
+    const validateUser = useValidation(schemaUser.createUserFirebase, formData)
 
     const createUser = await firebase
       .auth()
@@ -51,7 +53,7 @@ class AuthService {
       updatedAt: new Date(),
     }
 
-    const value = useValidation(schema.signUp, newFormData)
+    const value = useValidation(schemaAuth.signUp, newFormData)
     if (value.newPassword || value.confirmNewPassword) {
       delete value.newPassword
       delete value.confirmNewPassword
@@ -73,7 +75,7 @@ class AuthService {
    *
    * @param formData
    */
-  public static async signIn(formData: UserLoginAttributes) {
+  public static async baseLogin(formData: UserLoginAttributes) {
     const getUser = await this.getUserByEmail(formData.email)
 
     await admin.auth().setCustomUserClaims(getUser.uid, {
@@ -101,11 +103,43 @@ class AuthService {
 
   /**
    *
+   * @param formData
+   */
+  public static async webLogin(formData: UserLoginAttributes) {
+    const value = useValidation(schemaAuth.webLogin, formData)
+    const data = await this.baseLogin(value)
+
+    return { ...data }
+  }
+
+  /**
+   *
+   * @param formData
+   */
+  public static async mobileLogin(formData: MemberLoginAttributes) {
+    const value = useValidation(schemaAuth.mobileLogin, formData)
+
+    // base login
+    const data = await this.baseLogin({
+      email: value.email,
+      password: value.password,
+    })
+
+    // save device token fcm
+    const tokenFcmData = await TokenFCMService.create({
+      UserId: data.user.uid,
+      deviceToken: value.deviceToken,
+    })
+
+    return { ...data, tokenFcm: tokenFcmData }
+  }
+
+  /**
+   *
    * @param email
    */
   public static async profile(email: string) {
     const getUser = await this.getUserByEmail(email)
-
     const data = await UserService.findById(getUser.uid)
 
     return data

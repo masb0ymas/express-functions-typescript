@@ -13,6 +13,13 @@ async function ExpressErrorFirebase(
     })
   }
 
+  if (err.code && err.code.startsWith('messaging/')) {
+    return res.status(400).json({
+      code: 400,
+      message: err.message,
+    })
+  }
+
   next(err)
 }
 

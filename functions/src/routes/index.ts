@@ -12,7 +12,7 @@ const router = express.Router()
 /* Home Page. */
 router.get('/', function (req: Request, res: Response, next: NextFunction) {
   const buildResponse = BuildResponse.get({
-    message: `${APP_NAME} TS, Powered by masb0ymas`,
+    message: `${APP_NAME} TS, Support by masb0ymas`,
     github: 'https://github.com/masb0ymas/express-functions-typescript',
   })
   return res.json(buildResponse)
